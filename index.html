@@ -189,6 +189,7 @@
             align-items: center;
             position: relative;
             overflow: hidden;
+            padding-top: 100px; /* Prevent fixed header overlap */
         }
 
         .hero-bg {
@@ -379,9 +380,10 @@
         }
 
         /* Section Styling */
-        .section {
+        .section, section[id] {
             padding: 8rem 0;
             position: relative;
+            scroll-margin-top: 90px; /* Offset for fixed header */
         }
 
         .section-header {

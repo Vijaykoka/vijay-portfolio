@@ -4,3 +4,7 @@
 !.dev.vars.example
 .env*
 !.env.example
+
+# Credentials and backups
+vijaykoka.com/
+vijaykoka.com.zip
