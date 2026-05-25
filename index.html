@@ -312,11 +312,35 @@
             text-decoration: none;
             display: inline-block;
             transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .cta-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.4) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transition: all 0.6s ease;
+            z-index: -1;
+        }
+
+        .cta-btn:hover::before {
+            left: 100%;
         }
 
         .cta-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4);
         }
 
         .download-btn {
@@ -332,12 +356,38 @@
             align-items: center;
             gap: 0.8rem;
             transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                rgba(212, 175, 55, 0) 0%,
+                rgba(212, 175, 55, 0.25) 50%,
+                rgba(212, 175, 55, 0) 100%
+            );
+            transition: all 0.6s ease;
+            z-index: -1;
+        }
+
+        .download-btn:hover::before {
+            left: 100%;
         }
 
         .download-btn:hover {
-            background: var(--gradient-luxury);
-            color: var(--primary);
+            background: rgba(212, 175, 55, 0.05);
+            color: var(--accent-gold-light);
+            border-color: var(--accent-gold);
             transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
         }
 
         /* Hero Stats */
@@ -444,31 +494,80 @@
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
-            gap: 4rem 6rem;
+            gap: 2rem;
         }
 
         .client-logo {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.5rem;
-            opacity: 0.5;
+            gap: 0.8rem;
+            opacity: 0.65;
             transition: var(--transition);
+            text-decoration: none;
+            padding: 1.8rem 2.5rem;
+            background: rgba(13, 17, 23, 0.4);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            min-width: 250px;
+        }
+
+        .client-logo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(212, 175, 55, 0.15) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: skewX(-25deg);
+            transition: 0.75s;
+        }
+
+        .client-logo:hover::before {
+            left: 150%;
         }
 
         .client-logo:hover {
             opacity: 1;
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--accent-gold);
+            background: rgba(13, 17, 23, 0.85);
+            box-shadow: var(--shadow-gold), 0 12px 30px rgba(0, 0, 0, 0.3);
         }
 
         .client-logo i {
-            font-size: 2.5rem;
-            color: var(--accent-gold);
+            font-size: 2.8rem;
+            background: var(--gradient-luxury);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: var(--transition);
+        }
+
+        .client-logo:hover i {
+            transform: scale(1.1) rotate(3deg);
+            filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.4));
         }
 
         .client-logo span {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: var(--text);
             font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: var(--transition);
+        }
+
+        .client-logo:hover span {
+            color: var(--accent-gold-light);
         }
 
         /* About Section */
@@ -2056,10 +2155,14 @@
         <div class="container">
             <p class="clients-label">Trusted by Industry Leaders</p>
             <div class="clients-grid">
-                <div class="client-logo">
+                <a href="https://www.htcinc.com/" target="_blank" rel="noopener noreferrer" class="client-logo">
                     <i class="fas fa-building"></i>
                     <span>HTC Global Services</span>
-                </div>
+                </a>
+                <a href="https://www.globallogic.com/" target="_blank" rel="noopener noreferrer" class="client-logo">
+                    <i class="fas fa-laptop-code"></i>
+                    <span>GlobalLogic</span>
+                </a>
                 <div class="client-logo">
                     <i class="fas fa-globe"></i>
                     <span>Telcom Live Content</span>
