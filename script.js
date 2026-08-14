@@ -933,14 +933,14 @@
       const decimals = parseInt(el.dataset.decimals || '0', 10);
       const prefix = el.dataset.prefix || '';
       const suffix = el.dataset.suffix || '';
-      const duration = 1800;
+      const duration = 3200; // Slower, graceful rolling over 3.2s
       const start = performance.now();
       const startVal = target >= 10 ? 1 : 0;
 
       const frame = (now) => {
         const t = Math.min((now - start) / duration, 1);
-        // smooth easeOutExpo
-        const eased = t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+        // Smooth easeOutCubic for a clearly visible, graceful deceleration
+        const eased = 1 - Math.pow(1 - t, 3);
         const value = startVal + (target - startVal) * eased;
         el.textContent = prefix + value.toFixed(decimals) + suffix;
         if (t < 1) {
