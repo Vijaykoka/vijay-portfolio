@@ -2877,9 +2877,9 @@ html[data-exec-mode="on"] .bg-speed-control { display: none; }
 
 @media (max-width: 767px) { .bg-speed-control { display: none; } }
 
-/* ── RESPONSIVE MEDIA QUERIES ─────────────────────────────────────── */
+/* ── RESPONSIVE MEDIA QUERIES (DESKTOP, TABLET & MOBILE) ────────── */
 
-/* Keep the header a single line at all widths: collapse labels, never wrap */
+/* 1. Large Laptops / Desktops */
 @media (max-width: 1400px) {
   .header-time { display: none; }
 }
@@ -2887,27 +2887,166 @@ html[data-exec-mode="on"] .bg-speed-control { display: none; }
 @media (max-width: 1280px) {
   .availability-badge span { display: none; }
   .availability-badge { padding: 6px 10px; }
-  .header-nav { gap: 16px; }
+  .header-nav { gap: 14px; }
+  .section-counter { display: none; }
 }
 
 @media (max-width: 1120px) {
   .exec-mode-btn span { display: none; }
   .exec-mode-btn { padding: 8px 11px; }
-  .header-nav { gap: 12px; }
+  .header-nav { gap: 10px; }
 }
 
+/* 2. Tablet Breakpoint (768px – 991px) */
 @media (max-width: 991px) {
+  :root {
+    --content-inset: clamp(16px, 4vw, 36px);
+  }
+
   .header-nav { display: none; }
   .nav-menu-btn { display: block; }
+  
+  .hero-tagline { font-size: 22px; }
+  .hero-actions { gap: 12px; }
+  .btn-primary, .btn-secondary { padding: 14px 24px; font-size: 12px; }
+
+  .about-grid { grid-template-columns: 1fr; gap: 36px; }
+  .about-photo-col { max-width: 480px; margin: 0 auto; width: 100%; }
+
+  .process-pipeline-grid { grid-template-columns: repeat(2, 1fr); }
+  .pub-grid { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; gap: 36px; }
+
+  .p-card-3d { width: 340px; }
   .form-row { grid-template-columns: 1fr; }
 }
 
+/* 3. Mobile Phones (under 768px) */
 @media (max-width: 767px) {
-  .hero-name-line {
-    font-size: clamp(32px, 10.5vw, 70px);
+  :root {
+    --content-inset: 16px;
+    --page-gutter: 16px;
   }
-  .hero-name-line .name-part-prefix { margin-right: 0.25em; }
-  .p-card-3d { width: 300px; }
+
+  section {
+    padding: clamp(50px, 8vw, 90px) 0;
+  }
+
+  /* Header adjustments */
+  .site-header { padding: 12px 0; }
+  .header-inner { padding: 0 16px; }
+  .header-brand .brand-text { font-size: 14px; }
+  .btn-download-sm span { display: none; }
+  .btn-download-sm { padding: 8px 10px; }
+
+  /* Hero adjustments */
+  .hero-inner { padding: 0 16px; }
+  .hero-name-line {
+    font-size: clamp(34px, 11vw, 56px);
+    white-space: normal;
+    word-break: break-word;
+    line-height: 1.05;
+  }
+  .hero-name-line .name-part-prefix { margin-right: 0.2em; }
+  .hero-role-subtitle { font-size: 12px; letter-spacing: 0.04em; }
+  .hero-tagline { font-size: 18px; line-height: 1.4; }
+  .hero-note { font-size: 14px; }
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .hero-actions a {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .hero-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding-top: 24px;
+    margin-top: 24px;
+  }
+  .stat-card { padding: 18px 14px; border-radius: 12px; }
+  .stat-num { font-size: 32px; }
+  .stat-lbl { font-size: 11.5px; }
+  .stat-desc { font-size: 10.5px; }
+
+  .hero-trust-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .trust-badges { gap: 6px 8px; font-size: 10px; }
+
+  /* Value prop grid */
+  .value-prop-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .vp-card { padding: 24px 20px; border-radius: 14px; }
+  .vp-metric { font-size: 30px; }
+
+  /* About statement */
+  .about-statement { font-size: 24px; margin-bottom: 36px; }
+  .profile-info-badge { bottom: 14px; left: 14px; right: 14px; }
+  .name-tag { font-size: 22px; }
+  .phd-tag { font-size: 9.5px; padding: 3px 8px; }
+  .profile-gallery-grid { grid-template-columns: repeat(6, 1fr); gap: 6px; }
+
+  /* Process / pipeline */
+  .process-pipeline-grid { grid-template-columns: 1fr; gap: 16px; }
+  .pipeline-card { padding: 24px 20px; }
+
+  /* Experience timeline */
+  .timeline-card { padding: 24px 18px; border-radius: 14px; }
+  .timeline-role { font-size: 20px; }
+  .timeline-bullets li { font-size: 13.5px; padding-left: 20px; }
+
+  /* Featured projects */
+  .projects-h-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .project-filter-tabs { width: 100%; overflow-x: auto; flex-wrap: nowrap; padding: 4px; }
+  .p-tab { font-size: 11px; padding: 6px 14px; white-space: nowrap; }
+  .p-card-3d { width: min(300px, 82vw); }
+  .p-card-body { padding: 20px; }
+  .p-title { font-size: 20px; }
+
+  /* Certifications & Education */
+  .certs-cards-grid { grid-template-columns: 1fr; }
+  .edu-grid-3d { grid-template-columns: 1fr; }
+  .cert-card-3d, .edu-card-item { padding: 24px 18px; }
+
+  /* Insights */
+  .insights-grid { grid-template-columns: 1fr; }
+  .insight-card { padding: 22px 18px; }
+
+  /* Contact Form */
+  .c-form-card { padding: 24px 18px; border-radius: 16px; }
+  .form-title-text { font-size: 22px; }
+  .btn-submit-3d { width: 100%; padding: 16px; }
+
+  /* Modals */
+  .project-modal-card { padding: 24px 18px; border-radius: 18px; }
+  .p-modal-title { font-size: 24px; }
+  .p-modal-metrics-grid { grid-template-columns: 1fr; }
+
+  /* Footer */
+  .site-footer { padding: 28px 0 80px; }
+  .footer-contacts { gap: 6px; font-size: 10px; }
+
+  /* Floating UI */
+  .theme-toggle { bottom: 20px; right: 16px; width: 42px; height: 42px; }
+}
+
+/* 4. Small Mobile Phones (under 400px) */
+@media (max-width: 400px) {
+  .hero-name-line { font-size: 30px; }
+  .hero-stats-grid { grid-template-columns: 1fr; }
+  .profile-gallery-grid { grid-template-columns: repeat(3, 1fr); }
+  .fact-sheet-grid { grid-template-columns: 1fr; }
 }
 
 /* ── EXECUTIVE FACT SHEET ─────────────────────────────────────────── */
