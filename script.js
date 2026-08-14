@@ -240,6 +240,13 @@
         }, 35);
       }, letters.length * 60 + 300);
     }
+
+    // Trigger dynamic rolling counters on hero stats
+    setTimeout(() => {
+      if (typeof window.animateAllStatCounters === 'function') {
+        window.animateAllStatCounters();
+      }
+    }, 400);
   }
 
   // ══════════════════════════════════════════════════════════════════
@@ -912,33 +919,47 @@
     if (!stats.length) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    const animateCount = (el) => {
+    window.animateAllStatCounters = function() {
+      stats.forEach(el => {
+        if (!el.dataset.animated) {
+          animateCount(el);
+        }
+      });
+    };
+
+    function animateCount(el) {
+      el.dataset.animated = 'true';
       const target = parseFloat(el.dataset.count);
       const decimals = parseInt(el.dataset.decimals || '0', 10);
       const prefix = el.dataset.prefix || '';
       const suffix = el.dataset.suffix || '';
-      const duration = 1400;
+      const duration = 1800;
       const start = performance.now();
+      const startVal = target >= 10 ? 1 : 0;
 
       const frame = (now) => {
         const t = Math.min((now - start) / duration, 1);
-        const eased = 1 - Math.pow(1 - t, 3);
-        const value = target * eased;
+        // smooth easeOutExpo
+        const eased = t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+        const value = startVal + (target - startVal) * eased;
         el.textContent = prefix + value.toFixed(decimals) + suffix;
-        if (t < 1) requestAnimationFrame(frame);
-        else el.textContent = prefix + target.toFixed(decimals) + suffix;
+        if (t < 1) {
+          requestAnimationFrame(frame);
+        } else {
+          el.textContent = prefix + target.toFixed(decimals) + suffix;
+        }
       };
       requestAnimationFrame(frame);
-    };
+    }
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
+        if (entry.isIntersecting && !entry.target.dataset.animated) {
           animateCount(entry.target);
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.5 });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
 
     stats.forEach(s => observer.observe(s));
   }
