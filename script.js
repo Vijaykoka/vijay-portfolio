@@ -128,7 +128,7 @@
     if (!overlay || !nameContainer) return;
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const seen = localStorage.getItem('vk_intro_seen');
+    const seen = sessionStorage.getItem('vk_intro_seen');
     const execMode = document.documentElement.dataset.execMode === 'on';
 
     if (reduceMotion || seen || execMode) {
@@ -139,7 +139,7 @@
 
     const nameText = 'Dr. KOKA VIJAY';
     nameContainer.innerHTML = nameText.split('').map(l =>
-      l === ' ' ? '<span style="width:20px;"></span>' : `<span class="letter">${l}</span>`
+      l === ' ' ? '<span style="display:inline-block;width:16px;"></span>' : `<span class="letter">${l}</span>`
     ).join('');
 
     const letters = $$('.letter', nameContainer);
@@ -152,22 +152,22 @@
     letters.forEach((l, i) => {
       setTimeout(() => {
         l.classList.add('show');
-      }, 250 + i * 60);
+      }, 150 + i * 55);
     });
 
     if (subtitle) {
-      setTimeout(() => { subtitle.classList.add('show'); }, 1200);
+      setTimeout(() => { subtitle.classList.add('show'); }, 1000);
     }
 
     const finish = () => {
       if (finale) finale.stop();
       overlay.classList.add('done');
       document.body.style.overflow = '';
-      localStorage.setItem('vk_intro_seen', '1');
+      sessionStorage.setItem('vk_intro_seen', '1');
       initHeroAnimations();
     };
 
-    const introTimer = setTimeout(finish, 10000);
+    const introTimer = setTimeout(finish, 6500);
     if (skipBtn) {
       skipBtn.addEventListener('click', (e) => {
         e.stopPropagation();
