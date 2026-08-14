@@ -921,47 +921,59 @@
 
     window.animateAllStatCounters = function() {
       stats.forEach(el => {
-        if (!el.dataset.animated) {
-          animateCount(el);
-        }
+        animateCount(el, 3200);
       });
     };
 
-    function animateCount(el) {
-      el.dataset.animated = 'true';
+    function animateCount(el, customDuration) {
+      if (el._animRaf) cancelAnimationFrame(el._animRaf);
       const target = parseFloat(el.dataset.count);
       const decimals = parseInt(el.dataset.decimals || '0', 10);
       const prefix = el.dataset.prefix || '';
       const suffix = el.dataset.suffix || '';
-      const duration = 3200; // Slower, graceful rolling over 3.2s
+      const duration = customDuration || 2200; // Responsive duration on hover
       const start = performance.now();
       const startVal = target >= 10 ? 1 : 0;
 
       const frame = (now) => {
         const t = Math.min((now - start) / duration, 1);
-        // Smooth easeOutCubic for a clearly visible, graceful deceleration
+        // Smooth easeOutCubic deceleration
         const eased = 1 - Math.pow(1 - t, 3);
         const value = startVal + (target - startVal) * eased;
         el.textContent = prefix + value.toFixed(decimals) + suffix;
         if (t < 1) {
-          requestAnimationFrame(frame);
+          el._animRaf = requestAnimationFrame(frame);
         } else {
           el.textContent = prefix + target.toFixed(decimals) + suffix;
+          el._animRaf = null;
         }
       };
-      requestAnimationFrame(frame);
+      el._animRaf = requestAnimationFrame(frame);
     }
 
+    // Scroll-into-view initial animation
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting && !entry.target.dataset.animated) {
-          animateCount(entry.target);
+          entry.target.dataset.animated = 'true';
+          animateCount(entry.target, 3200);
           observer.unobserve(entry.target);
         }
       });
     }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
 
     stats.forEach(s => observer.observe(s));
+
+    // Mouse hover re-trigger on stat cards (.stat-card, .vp-card)
+    const hoverCards = $$('.stat-card, .vp-card');
+    hoverCards.forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        const countEl = card.querySelector('[data-count]');
+        if (countEl) {
+          animateCount(countEl, 1800);
+        }
+      });
+    });
   }
 
   function initSectionCounter() {
