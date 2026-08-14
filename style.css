@@ -549,11 +549,11 @@ button {
 /* ── Theme Toggle FAB ─────────────────────────────────────────────── */
 .theme-toggle {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
+  bottom: 24px;
+  right: 24px;
   z-index: 210;
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: var(--bg-elev);
   border: 1px solid var(--line-strong);
@@ -3046,9 +3046,6 @@ html[data-exec-mode="on"] .bg-speed-control { display: none; }
   /* Footer */
   .site-footer { padding: 28px 0 80px; }
   .footer-contacts { gap: 6px; font-size: 10px; }
-
-  /* Floating UI */
-  .theme-toggle { bottom: 20px; right: 16px; width: 42px; height: 42px; }
 }
 
 /* 4. Small Mobile Phones (under 400px) */
@@ -3558,8 +3555,8 @@ html[data-exec-mode="on"] .hero-canvas-wrap { opacity: 0.2; }
 /* 06 � Back to Top FAB */
 .back-to-top-fab {
   position: fixed;
-  bottom: 6rem;
-  right: 1.5rem;
+  bottom: 80px;
+  right: 24px;
   z-index: 205;
   width: 44px;
   height: 44px;
@@ -3704,8 +3701,9 @@ html[data-exec-mode="on"] .shortcuts-fab { display: none; }
 }
 
 @media (max-width: 767px) {
-  .back-to-top-fab { bottom: 6.5rem; right: 1.25rem; }
-  .shortcuts-fab { bottom: 1.25rem; left: 1.25rem; }
+  .back-to-top-fab { bottom: 70px; right: 16px; width: 42px; height: 42px; }
+  .theme-toggle { bottom: 18px; right: 16px; width: 42px; height: 42px; }
+  .shortcuts-fab { bottom: 18px; left: 16px; width: 42px; height: 42px; }
 }
 
 
